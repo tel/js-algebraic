@@ -25,6 +25,9 @@ Seasoned OO-ers might find this awkward and backward—we should be doing
 something like `[1].concat([2])`. *Algebraic* intentionally eschews this design
 with its modular design.
 
+The fastest way to describe modular design in OO-terms is to say that a module
+is a class with only static methods. They, however, can also be much, much more.
+
 ## Principles
 
 ### Behavior before state
@@ -103,11 +106,6 @@ use of algebraic laws over immutable values out of both necessity and splendor.
 * [ ] `Set.OfTotalOrder`
 * [X] `Dict`
 * [X] `Trie`
-
-### References
-
-* [fantasyland/fantasy-land](https://github.com/fantasyland/fantasy-land)
-* [tel/ocaml-cats](https://github.com/tel/ocaml-cats)
 
 ## Specifications
 
@@ -492,4 +490,21 @@ Three notational shorthands are used in this section: `id = x => x`, `f . g = x 
     * `traverse : ∀ a b k . (Applicative {k}, a -> k b) -> (F a -> t (F b))`
   * *laws*
     * See [Haskell documentation](https://hackage.haskell.org/package/base-4.8.1.0/docs/Data-Traversable.html)
+
+## References
+
+* [tel/ocaml-cats](https://github.com/tel/ocaml-cats): An attempt to bring
+  statically typed algebraic interfaces to OCaml.
+
+* [fantasyland/fantasy-land](https://github.com/fantasyland/fantasy-land): A
+  specification of objects which provide suitable algebraic operations. It's
+  another, somewhat popular point in the design space of algebraic FP in
+  Javascript.
+
+* [Ramda.js](http://ramdajs.com/): An implementation of some algebraic and some
+  higher-order functional techniques via object-oriented Javascript.
+
+* [plaid/sanctuary](https://github.com/plaid/sanctuary): An implementation of
+  more advanced algebraic data types and associated functionality written For
+  compatibility with Ramda.
 
