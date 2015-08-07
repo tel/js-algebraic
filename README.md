@@ -96,6 +96,18 @@ use of algebraic laws over immutable values out of both necessity and splendor.
   naming things. Algebra provides a large set of useful, consistent names along
   with well-defined expectations for what they mean.
 
+## FAQ
+
+* **Why ES6 and not something like Typescript?** Three reasons.
+  * This is a packaging of some code originally written for a real project using
+    ES6, so using Typescript was not an option initially.
+  * I'm not confident that I like the design decisions of Typescript's type
+    system sufficiently to want to endorse it. An untyped system is arguably
+    worse, but it gives me the freedom to write exactly the code intended.
+  * I am writing some functions which could be well-typed but certainly would
+    not be in most standard type systems. Lacking a real type checker I can
+    introduce semi-formal notation for thee ideas and work with them.
+
 ## Modules
 
 ### Special
@@ -117,6 +129,11 @@ use of algebraic laws over immutable values out of both necessity and splendor.
 * [ ] `Set.OfTotalOrder`
 * [X] `Dict`
 * [X] `Trie`
+* [X] `Validation`
+
+* [X] `Either`
+
+* [ ] `Contract`
 
 ## Specifications
 
@@ -493,7 +510,9 @@ Three notational shorthands are used in this section: `id = x => x`, `f . g = x 
     * `reduceRight`
       * defined by passing through arrays
   * *laws*
-    * "seek and find": for all `a : Type`, all functions `F a -> a?`, and all values `x : F a`, if `f(x)` exists then `f(x)` is in the array `toArray(x)`
+    * "seek and find": for all `a : Type`, all functions `F a -> a?`, and all
+      values `x : F a`, if `f(x)` exists then `f(x)` is in the array
+      `toArray(x)`
 
 * **Traversable** {`F`}
   * *include* **Foldable** {`F`}
@@ -501,6 +520,16 @@ Three notational shorthands are used in this section: `id = x => x`, `f . g = x 
     * `traverse : ∀ a b k . (Applicative {k}, a -> k b) -> (F a -> t (F b))`
   * *laws*
     * See [Haskell documentation](https://hackage.haskell.org/package/base-4.8.1.0/docs/Data-Traversable.html)
+
+### Container-like Theories
+
+* **Cons** {`F`}
+  * *include* **Foldable** {`F`}
+  * *definitions*
+    * `cons : ∀ a . (a, F a) -> F a`
+  * *laws*
+    * "place and find": for all `a : Type` with `Decidable {a}`, for all
+      `c : F a` and `x : a`, we have `contains(x, toArray(cons(x, c))`
 
 ## References
 
