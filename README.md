@@ -3,6 +3,85 @@
 
 A specification of algebraic module interfaces.
 
+## Truly modular functional programming in Javascript
+
+*Algebraic* is a set of Javascript objects which are known as *algebraic modules*
+or *modules* when it's clear that I'm not referring to CommonJS, AMD, or ES6
+import/export modules. A module contains a set of related behaviors operating
+over a set of *types* which the module pertains to.
+
+For instance, there is a module `Array` which contains operations over the
+standard JS array type.
+
+```javascript
+> var A = require("algebraic");
+> A.Array.of(1)
+[ 1 ]
+> A.Array.plus(A.Array.of(1), A.Array.of(2))
+[ 1, 2 ]
+```
+
+Seasoned OO-ers might find this awkward and backward—we should be doing
+something like `[1].concat([2])`. *Algebraic* intentionally eschews this design
+with its modular design.
+
+## Principles
+
+### Behavior before state
+
+A driving principle of *Algebraic*'s design is *behavior before state*. What
+this means is that libraries and programs should be first designed against a
+specification of behavior and oblivious to the state required to pull the
+behavior off. The advantage of this adage is increased modularity driven by a
+clearer line between interface and implementation.
+
+Unfortunately, standard OO practice conflates behavior and state
+heavily---indeed some take the definition of an object to *be* the conflation of
+behavior and state.
+
+In most cases module objects themselves are completely state free. Indeed, in
+any case where they are not the observation of that state ought to be severely
+restricted and the intended behavior favored. Instead all of the *state* of
+*Algebraic* arises from the arguments passed to and received from module
+behaviors.
+
+### "Seamless" immutability by default
+
+Immutability vastly reduces the state space of a program improving the ability
+for the author to correctly reason about it's behavior. It's also assumed in
+most descriptions of algebraic structures. For these reasons, *Algebraic*
+eschews behaviors which mutate values opting instead to return new copies as
+often as possible. This also provides standard sharing tricks like pre-emptive
+`O(1)` equality checks (which *Algebraic* uses by default) useful for
+comparison-driven programs like React-style UIs.
+
+**Note**: *Algebraic*-style immutability is *dangerous* when mixed with mutable
+JS code. *Algebraic* does not attempt to freeze or seal values and also
+maximizes sharing, so mutation of an object involved in *Algebraic* behaviors
+can have long range effects.
+
+## Inspirations
+
+*Algebraic* takes its design inspiration heavily from two other languages and
+their associated communities: ML and Haskell. Modular design of programs is
+*extraordinarily well done* in ML languages like OCaml and SML where the static
+type system helps ensure that your interfaces are well-defined and properly
+used. Algebraic specifications of operations is *extraordinarily well done* in
+Haskell where laziness, purity, and the Haskell "typeclass" mechanism drove the
+use of algebraic laws over immutable values out of both necessity and splendor.
+
+## Motivation
+
+* *Why not OO?* Other FP-in-JS libraries (Fantasy Land, Ramda, Sanctuary, etc)
+  provide FP-like functionality by attaching methods to objects so that a value
+  `x` is, e.g., a *Monoid* when `x.plus` is a partially-applied monoid operation.
+  `algebraic` eschews this by placing *all* functionality in an object external
+  to `x` called a *module*.
+* *Immutable by default.* (Obvious cache invalidation)
+* *Names, operations, and laws from algebra.* Programming is an exercise in
+  naming things. Algebra provides a large set of useful, consistent names along
+  with well-defined expectations for what they mean.
+
 ## Modules
 
 ### Special
@@ -413,3 +492,4 @@ Three notational shorthands are used in this section: `id = x => x`, `f . g = x 
     * `traverse : ∀ a b k . (Applicative {k}, a -> k b) -> (F a -> t (F b))`
   * *laws*
     * See [Haskell documentation](https://hackage.haskell.org/package/base-4.8.1.0/docs/Data-Traversable.html)
+
