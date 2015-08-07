@@ -1,7 +1,10 @@
 
-# Algebra: Algebraic module specifications
+# Algebraic: modules and specifications
 
-A specification of algebraic module interfaces.
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/reifyhealth/js-algebraic?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+A set of specifications of *signatures* on *algebraic modules* and an
+implementation of a standard library built to match.
 
 ## Truly modular functional programming in Javascript
 
@@ -23,7 +26,15 @@ standard JS array type.
 
 Seasoned OO-ers might find this awkward and backward—we should be doing
 something like `[1].concat([2])`. *Algebraic* intentionally eschews this design
-with its modular design.
+with its modular design. (If the noisy imports bother you then consider ES6
+destructuring)
+
+```javascript
+import { Array } from "algebraic";
+const { plus, of } = Array;
+
+const x = plus(of(1), of(2));
+```
 
 The fastest way to describe modular design in OO-terms is to say that a module
 is a class with only static methods. They, however, can also be much, much more.
