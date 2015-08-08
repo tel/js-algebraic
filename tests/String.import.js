@@ -16,7 +16,7 @@ Copyright 2015 Reify Health
 
  */
 
-import { describe } from "{reify:test-helpers}/index";
+import { describe } from "./helpers";
 import { onPairs, testEq, testNeq } from "./helpers";
 import { strings as examples } from "./examples";
 

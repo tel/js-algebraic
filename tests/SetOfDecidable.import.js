@@ -16,7 +16,7 @@ Copyright 2015 Reify Health
 
  */
 
-import { describe } from "{reify:test-helpers}/index";
+import { describe } from "./helpers";
 import { String, Set } from "algebraic";
 import {
   onPairs, onTriples,

@@ -40,10 +40,11 @@ Package.onUse(function(api) {
 Package.onTest(function(api) {
   api.use("tinytest");
   api.use("reify:algebraic");
-  api.use("reify:test-helpers");
   api.use("universe:modules@0.4.0");
 
   api.addFiles([
+    "tests/helpers.import.js",
+
     "tests/examples.import.js",
     "tests/helpers.import.js",
 
