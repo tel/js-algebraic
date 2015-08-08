@@ -1,0 +1,81 @@
+{
+    "rules": {
+        "indent": [
+            2,
+            2
+        ],
+        "quotes": [
+            2,
+            "double"
+        ],
+        "linebreak-style": [
+            2,
+            "unix"
+        ],
+        "semi": [
+            2,
+            "always"
+        ],
+        "new-cap": 0,
+        "key-spacing": 0,
+        "comma-dangle": [2, "always-multiline"],
+        "strict": [2, "global"],
+        "no-underscore-dangle": 0,
+        "no-use-before-define": [2, "nofunc"],
+        "no-unused-vars": [
+            2,
+            {
+                "vars": "local",
+                "args": "none"
+            }
+        ],
+
+        "generator-star-spacing": [2, "before"],
+        "no-var": 2,
+        "prefer-const": 0,
+        "object-shorthand": [2, "always"],
+
+        "react/display-name": 2,
+        "react/jsx-boolean-value": 2,
+        "react/jsx-no-undef": 2,
+        "react/jsx-quotes": 2,
+        "react/jsx-sort-prop-types": 2,
+        "react/jsx-sort-props": 0,
+        "react/jsx-uses-react": 2,
+        "react/jsx-uses-vars": 2,
+        "react/no-did-mount-set-state": 2,
+        "react/no-did-update-set-state": 2,
+        "react/no-multi-comp": 0,
+        "react/no-unknown-property": 2,
+        "react/prop-types": 2,
+        "react/react-in-jsx-scope": 2,
+        "react/self-closing-comp": 2,
+        "react/sort-comp": 2,
+        "react/wrap-multilines": 2
+    },
+    "env": {
+        "es6": true,
+        "node": true,
+        "browser": true,
+        "meteor": true,
+        "mocha": true
+    },
+    "ecmaFeatures": {
+        "modules": true,
+        "destructuring": true,
+        "arrowFunctions": true,
+        "blockBindings": true,
+        "defaultParams": true,
+        "forOf": true,
+        "objectLiteralComputedProperties": true,
+        "objectLiteralShorthandMethods": true,
+        "objectLiteralShorthandProperties": true,
+        "restParams": true,
+        "spread": true,
+        "templateStrings": true,
+        "jsx": true
+    },
+    "plugins": [
+        "react"
+    ]
+}

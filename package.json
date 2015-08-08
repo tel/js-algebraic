@@ -1,0 +1,38 @@
+{ "name": "algebraic"
+, "version": "0.0.9"
+, "description": "Algebraic modules and specifications"
+, "homepage": "https://github.com/reifyhealth/js-algebraic"
+, "bugs":
+  { "url" : "https://github.com/reifyhealth/js-algebraic/issues"
+  , "email" : "joseph@reifyhealth.com"
+  }
+, "main": "lib/index.js"
+, "scripts":
+  { "clean": "rm -rf lib; rm -rf node_modules"
+  }
+, "keywords":
+  [ "algebraic"
+  , "modules"
+  , "functional"
+  , "ml"
+  ]
+, "author":
+  { "name": "Joseph Abrahamson"
+  , "email": "joseph@reifyhealth.com"
+  , "url": "http://jspha.com"
+  }
+, "directories":
+  { "doc": "./doc"
+  , "lib": "./lib"
+  }
+, "repository":
+  { "type" : "git"
+  , "url" : "reifyhealth/js-algebraic"
+  }
+, "license": "BSD3"
+, "devDependencies":
+  { "gulp": "^3.9.0"
+  , "gulp-babel": "^5.2.0"
+  , "gulp-ext-replace": "^0.2.0"
+  }
+}
