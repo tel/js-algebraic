@@ -29,7 +29,7 @@
   { "type" : "git"
   , "url" : "reifyhealth/js-algebraic"
   }
-, "license": "BSD3"
+, "license": "Apache-2.0"
 , "devDependencies":
   { "gulp": "^3.9.0"
   , "gulp-babel": "^5.2.0"
