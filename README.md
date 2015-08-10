@@ -42,7 +42,8 @@ is a class with only static methods. They, however, can also be much, much more.
 ## Status
 
 ![Travis-CI](https://travis-ci.org/reifyhealth/js-algebraic.svg)
-![Testling](https://ci.testling.com/reifyhealth/js-algebraic.png)
+[![browser support](https://ci.testling.com/reifyhealth/js-algebraic.png)
+](https://ci.testling.com/reifyhealth/js-algebraic)
 
 ## Principles
 
