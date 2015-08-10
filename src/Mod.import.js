@@ -28,7 +28,10 @@ export
     , zero
   };
 
+import * as String from "./String";
 import * as Array from "./Array";
+import * as Set from "./Set";
+import * as Dict from "./Dict";
 
 function zero() { return {}; }
 
@@ -49,25 +52,34 @@ export function has(names) {
   return m => Array.every(n => m[n])(names);
 }
 
+export const ops = (() => {
+  const S = Set.OfDecidable(String);
+
+  const decidable = ["eq"];
+  const magma = ["plus"];
+  const monoid = S.plus(magma, ["zero", "plusN"]);
+
+  const covariant = ["map"];
+  const apply = S.plus(covariant, ["ap", "smash", "smashWith"]);
+  const applicative = S.plus(apply, ["of"]);
+
+  const bind = S.plus(covariant, ["bind", "seq", "kseq", "collapse"]);
+
+  const monad = S.plus(bind, applicative);
+
+  return {
+    decidable,
+    magma, semigroup: magma, monoid,
+    covariant, apply, applicative, bind, monad,
+  };
+})();
+
 //: Dict (Mod -> Boolean)
-export const satisfies = {
-  magma: has(["plus"]),
-  semigroup: has(["plus"]),
-  monoid: has(["plus", "zero", "plusN"]),
-};
+export const satisfies = Dict.map(has)(ops);
 
 //: Mod -> String -> () {Exception}
-export function checkSatisfies(m, interfaceName) {
-  const test = satisfies(interfaceName);
-  if (!test) { throw new Error(`No known interface named ${interfaceName}.`); }
-  else {
-    if (!test(m)) {
-      throw new Error(
-        `Module ${m} does not satisfy interface ${interfaceName}`
-      );
-    }
+export function checkSatisfies(m, test) {
+  if (!test(m)) {
+    throw new Error(`Module ${m} does not satisfy all interfaces`);
   }
 }
-
-//: Dict (Mod -> [String + Stringg])
-export const verifies = { };

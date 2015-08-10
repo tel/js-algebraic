@@ -28,8 +28,13 @@ import * as Set from "./Set";
 import * as Dict from "./Dict";
 import * as Trie from "./Trie";
 import * as Validation from "./Validation";
+import * as Stream from "./Stream";
+
+import * as Gen from "./Gen";
 
 import * as Either from "./Either";
+
+import * as Mod from "./Mod";
 
 export
   { Naive
@@ -44,6 +49,11 @@ export
   , Dict
   , Trie
   , Validation
+  , Stream
+
+  , Gen
 
   , Either
+
+  , Mod
   };
