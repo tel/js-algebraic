@@ -51,7 +51,7 @@ export
   , foldMap //: ∀ a x . (Monoid {x}, (a, k) -> x) -> (t a -> x)
   , toArray //: ∀ a . t a -> [a]
   , forEach //: ∀ a . (t a, (a -> ()) -> ()
-  , reduce //: ∀ a r . ((r, a, Natural) -> r, r) -> (t a -> r)
+  , reduce //: ∀ a r . ((r, a, String) -> r, r) -> (t a -> r)
 
   // TRAVERSABLE
   /* TODO: , traverse //: ∀ a b f . (Applicative {f}, a -> f b) -> (t a -> f (t b)) */
@@ -102,7 +102,7 @@ function forEach(d, f) {
 function foldMap(monoid, f) {
   return d => {
     let out = monoid.zero();
-    forEach(d, a => out = monoid.plus(out, f(a)));
+    forEach(d, (a, k) => out = monoid.plus(out, f(a, k)));
     return out;
   };
 }
@@ -113,8 +113,12 @@ function toArray(d) {
   return out;
 }
 
-function reduce(plus, zero) {
-  return foldMap({plus, zero: () => zero}, x => x);
+function reduce(redu, zero) {
+  return d => {
+    let acc = zero;
+    forEach(d, (v, k) => { acc = redu(acc, v, k); });
+    return acc;
+  };
 }
 
 function map(f) {
