@@ -39,6 +39,11 @@ const x = plus(of(1), of(2));
 The fastest way to describe modular design in OO-terms is to say that a module
 is a class with only static methods. They, however, can also be much, much more.
 
+## Status
+
+![Travis-CI](https://travis-ci.org/reifyhealth/js-algebraic.svg)
+![Testling](https://ci.testling.com/reifyhealth/js-algebraic.png)
+
 ## Principles
 
 ### Behavior before state
