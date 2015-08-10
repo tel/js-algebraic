@@ -25,6 +25,8 @@ demand.
 import * as Array from "./Array";
 import * as Natural from "./Natural";
 
+import * as Defaults from "./Completions/Defaults";
+
 // IMPLEMENTATION
 //////////////////
 
@@ -36,7 +38,7 @@ type x a = null | { head: a, tail: t a }
  */
 
 //: ∀ a . (a, t a) -> t a
-function cons(head, tail) { return () => ({head, tail}); }
+export function cons(head, tail) { return () => ({head, tail}); }
 
 //: ∀ a r . (r, (a, t a) -> r) -> (t a -> r)
 export function scott(z, f) {
@@ -96,7 +98,7 @@ export function interleave(s1, s2) {
   return scott(s2, (head, tail) => cons(head, interleave(s2, tail)));
 }
 
-export const fromArray = Array.reduceRight((acc, a) => cons(a, acc), zero());
+export const ofArray = Array.reduceRight((acc, a) => cons(a, acc), zero());
 
 export function toArrayN(n, s0) {
   let out = [];
@@ -107,4 +109,65 @@ export function toArrayN(n, s0) {
     else { break; }
   }
   return out;
+}
+
+//: ∀ a . (t a, t a) -> t a
+export function plus(a, b) {
+  const go = scott(b, (v, t) => cons(v, go(t)));
+  return go(a);
+}
+
+//: ∀ a . [t a] -> t a
+export function plusN(ss) { return ss.reduce(plus, zero()); }
+
+//: ∀ a . t a -> Boolean
+export const empty = scott(true, () => false);
+
+//: ∀ a . t a -> Boolean
+export const isZero = empty;
+
+//: ∀ a . a -> t a
+export const of = singleton;
+
+export function bind(k) {
+  const go = scott(zero(), (v, t) => plus(k(v), go(t)));
+  return go;
+}
+
+export const seq = Defaults.seq.bind(bind);
+
+export const kseq = Defaults.kseq.bind(bind);
+
+export const collapse = Defaults.collapse.bind(bind);
+
+export const ap = Defaults.ap.bind_map(bind, map);
+
+export const smashWith = Defaults.smashWith.bind_map(bind, map);
+
+export const smash = Defaults.smash.smashWith(smashWith);
+
+//: (Decidable a, Natural = 1000) -> Decidable (Stream s)
+// Decidability up to a certain length.
+export function OfDecidable(argMod, n = 1000) {
+  function eq(sa0, sb0) {
+    let sa = sa0;
+    let sb = sb0;
+    // Search up to n elements looking for a discrepancy
+    for (let i = 0; i <= n; i++) {
+      const xa = uncons(sa);
+      const xb = uncons(sb);
+      if (!xa && !xb) { return true; }
+      else if (!xa && xb) { return false; }
+      else if (xa && !xb) { return false; }
+      else {
+        const { head: ha, tail: ta } = xa;
+        const { head: hb, tail: tb } = xb;
+        if (!argMod.eq(ha, hb)) { return false; }
+        sa = ta;
+        sb = tb;
+      }
+    }
+  }
+
+  return { eq };
 }

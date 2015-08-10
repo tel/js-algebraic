@@ -14,7 +14,7 @@ Copyright 2015 Reify Health
    limitations under the License.
  */
 
-import { ok, mkSatisfyCheck } from "./helpers";
+import { eqOk, ok, mkSatisfyCheck } from "./helpers";
 
 //: Mod -> [V]
 export const satisfies = mkSatisfyCheck("semigroup");
@@ -25,13 +25,9 @@ export function _verifyOperations(exs, { eq, plus }) {
   let res = [];
 
   // ASSOCIATIVITY { ∀ x y z . x + (y + z) = (x + y) + z }
-  res.push(ok(
-    exs.every(ex1 =>
-      exs.every(ex2 =>
-        exs.every(ex3 =>
-          eq(plus(ex1, plus(ex2, ex3)), plus(plus(ex1, ex2), ex3))
-        ))),
-    `plus satisfies assocativity (${n * n * n} examples)`));
+  exs.forEach(x => exs.forEach(y => exs.forEach(z =>
+    res.push(eqOk(eq, plus(x, plus(y, z)), plus(plus(x, y), z),
+      `plus satisfies assocativity (${n * n * n} examples)`)))));
 
   return res;
 }
