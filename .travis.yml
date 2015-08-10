@@ -1,11 +1,14 @@
 language: node_js
 node_js:
-  - "node"
-  - "stable"
-  - "0.12"
-  - "0.11"
-  - "iojs"
+- node
+- stable
+- '0.12'
+- '0.11'
+- iojs
 install:
-  - npm install
+- npm install
 script:
-  - make test
+- make test
+notifications:
+  slack:
+    secure: onbF6GPjmlXl9BKA8HQTNV856ecbTnUws5Rdx+4xPbEEuBYZylgCUlg/JLEkvXx+mNb7LhFL7AZHzl0YpUNKBCAVqKpcObauY9Pv7wyoVoOX55Uhlv8tu0+g1WUveZKYzpW7tFGWTC1GYs/+G7gAfrp09eaclMeFILFV1ajyN4AwP/KKTuEvVlmMC2CUUNnpshF1nDJ4eqqCIc0CLcZpE89vkTjNF4z5xutneE5u0CZtSKWdCgv8yz/w60Bn5L/HKdCc48nJPmE4M2gOaLtMEkjZonKd6/xvC1uUeQnJIF4G5tMGa7tRuLiKwbWXWdBMAcyzUq3AjOYJTVvg8+aqy+4+WMZ2Vy+UBSNMczzqsRR6AevVj2jVRWioLrw2MKhnZ0VzSyXyAPZ4asXHBGsWLu0Ye2s3njgqDzYb+zaMUEY8mT1NY20LslSWYqfK2nrjI8T4KHLNpUJdEuOAp3CsSi/5Wz2bFNmRDxAXuQmmrct4irdeqYPrm0QIPUDJfONS/UaiZv7IJ6OLxG+9Zyyc4r9mW1aFstmUz1Cf+mQ1jKJDPagwxpNuCbZvvlWk0FFU7pH++MYzMnxgAlweOob0Rlvsqqpa6N9oK8wTaAnLwQyNvNQIzjJ9fd9dtSM+Ld47q53Axcuaf0NMyLWw9IQVe3Xn/InDklBKT9L2FvFM+Pc=
