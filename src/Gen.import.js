@@ -14,9 +14,10 @@ Copyright 2015 Reify Health
    See the License for the specific language governing permissions and
    limitations under the License.
 
- */
 
-export const strings = [
-  "", "1", "12", "123", "1234",
-  "lorem ipsum sit dolor amet",
-];
+# Generators
+
+Values of type `Gen a` are mechanisms for creating random streams of values of
+type `a`. They also allow for "shrinking" of values.
+
+ */

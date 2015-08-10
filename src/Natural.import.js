@@ -27,7 +27,8 @@ export
   {
   // type t : type
 
-    sum //: [t] -> t
+    recur //: ∀ r . ((r, t) -> r) -> t -> (r -> r)
+  , sum //: [t] -> t
   , product //: [t] -> t
   , enumerate //: (t, t) -> t
 
@@ -52,3 +53,13 @@ export
   , eq as indistinguishable //: (t, t) -> Boolean
   , incomparable //: (t, t) -> Boolean
   };
+
+function recur(f) {
+  return n => r0 => {
+    let out = r0;
+    for(let i = n; i >= 0; i--) {
+      out = f(out, i);
+    }
+    return out;
+  };
+}
