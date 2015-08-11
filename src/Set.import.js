@@ -44,6 +44,8 @@ HashSet.Mk(X).t is a enumerable subset of some element type, X.t.
 
  */
 
+import * as Defaults from "./Completions/Defaults";
+
 import * as Array from "./Array";
 import * as String from "./String";
 
@@ -106,6 +108,10 @@ function OfDecidable(elModule) {
     contains: XDec.contains,
     foldMap: X.foldMap,
     forEach: X.forEach,
+    every: X.every,
+    some: X.some,
+    length: X.length,
+    empty: X.empty,
     eq: indistinguishable,
     leq, indistinguishable, incomparable,
     bottom,
@@ -181,6 +187,13 @@ function OfHashable(elModule) {
 
   function forEach(set, f) { Array.forEach(toArray(set), f); }
 
+  const every = Defaults.every.toArray(toArray);
+  const some = Defaults.some.toArray(toArray);
+
+  const length = Defaults.length.foldMap(foldMap);
+  const empty = Defaults.empty.foldMap(foldMap);
+
+
   function eq(a, b) { return leq(a, b) && leq(b, a); }
   function leq(a, b) {
     return Object.keys(a).every(k => b[k] && Bucket.leq(a[k], b[k]));
@@ -229,6 +242,10 @@ function OfHashable(elModule) {
     contains,
     foldMap,
     forEach,
+    some,
+    every,
+    length,
+    empty,
     eq,
     leq, indistinguishable, incomparable,
     bottom,

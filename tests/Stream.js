@@ -122,7 +122,7 @@ test("stream / monad / satisfies", t => {
 });
 
 test("stream / monad / verifies (of ints)", t => {
-  const ints = [1, 2, 3, 4, 5];
+  const ints = [1];
   all(t, VerifyMonad._verifyOperations(
     ints,
     [

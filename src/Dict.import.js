@@ -38,6 +38,9 @@ export
   // MODULES
     KeySet // SET {k}
 
+  , zero
+  , isZero
+
   // DICT (specific)
   , keys //: ∀ a . t a -> KeySet
   , singleton //: ∀ a . (k, a) -> t a
@@ -113,9 +116,9 @@ function toArray(d) {
   return out;
 }
 
-function reduce(redu, zero) {
+function reduce(redu, z) {
   return d => {
-    let acc = zero;
+    let acc = z;
     forEach(d, (v, k) => { acc = redu(acc, v, k); });
     return acc;
   };
@@ -137,7 +140,7 @@ function keys(d) {
 
 function OfDecidable({ eq: argEq }) {
   function eq(a, b) {
-    const allKeys = KeySet.union(keys(a), keys(b));
+    const allKeys = KeySet.join(keys(a), keys(b));
     return KeySet.every(k => {
       const va = get(k, a);
       const vb = get(k, b);
@@ -148,10 +151,11 @@ function OfDecidable({ eq: argEq }) {
   return { eq };
 }
 
-function OfSemigroup({ plus: argPlus }) {
-  function zero() { return {}; }
-  function isZero(d) { return KeySet.isZero(keys(d)); }
+function zero() { return {}; }
 
+function isZero(d) { return KeySet.isZero(keys(d)); }
+
+function OfSemigroup({ plus: argPlus }) {
   function plus(d1, d2) {
     const allKeys = KeySet.plus(keys(d1), keys(d2));
     let out = {};

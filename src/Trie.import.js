@@ -76,6 +76,9 @@ export function OfBucket(Bucket) {
   //: ∀ a . (path, a) -> t a
   function at(path, v) { return growN(path, of(v)); }
 
+  //: ∀ a . t a -> Boolean
+  function isZero(t) { return !hasValue(t) && ! hasChildren(t); }
+
   //: ∀ a . (path, b a -> b a) -> (t a -> t a)
   function updateIn(path0, f) {
     function go(path) {
@@ -147,7 +150,7 @@ export function OfBucket(Bucket) {
   function plus(t1, t2) {
     return mk(
       Bucket.plus(getValues(t1), getValues(t2)),
-      DictMonoid.plus(getChildren(t1), getChildren(t1))
+      DictMonoid.plus(getChildren(t1), getChildren(t2))
     );
   }
 
@@ -244,17 +247,10 @@ export function OfBucket(Bucket) {
 
   //: ∀ a . [t a] -> t a
   // A bit like #plus, but all paths get extended by the array index
-  const extArray = Array.reduce((tcd, v, ix) => plus(tcd, grow(ix)(v)), zero());
+  const extArray = Array.reduceLeft((tcd, v, ix) => plus(tcd, grow(v, ix)), zero());
 
   //: ∀ a . Dict (t a) -> t a
-  const extDict = Dict.reduce((tcd, v, k) => plus(tcd, grow(k)(v)), zero());
-
-  // function ofMap(mp) {
-  //   return Object.keys(mp).reduce(
-  //     (tcd, k) => mergeRight(tcd, extend1(k)(mp[k])),
-  //     zero
-  //   );
-  // }
+  const extDict = Dict.reduce((tcd, v, k) => plus(tcd, grow(v, k)), zero());
 
   return {
     getValues,
